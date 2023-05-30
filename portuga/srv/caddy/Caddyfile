@@ -1,0 +1,66 @@
+{
+	email "rescobar@pm.me"
+	storage file_system {
+		root /srv
+	}
+	log {
+		output file /var/log/caddy/caddy.log {
+			roll_uncompressed
+			roll_keep 100
+		}
+	}
+}
+
+www.paemuri.com, www.kapiyeya.com, www.classicos.info {
+	redir https://{labels.1}.{labels.0}{uri}
+}
+
+classicos.info {
+	root * /srv/{host}
+	try_files {path} {path}.html
+	encode zstd gzip
+
+	file_server
+}
+
+paemuri.com {
+	root * /srv/{host}
+	try_files {path} {path}.html
+	encode zstd gzip
+	header {
+		Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; media-src 'self'; script-src 'self'; style-src 'self' code.cdn.mozilla.net; font-src 'self' code.cdn.mozilla.net"
+		Referrer-Policy origin
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options nosniff
+		X-Frame-Options deny
+	}
+
+	file_server {
+		hide error.html
+	}
+	handle_errors {
+		rewrite * /error.html
+		file_server
+	}
+}
+
+kapiyeya.com {
+	root * /srv/{host}
+	try_files {path} {path}.html
+	encode zstd gzip
+	header {
+		Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self' data:; media-src 'self'; script-src 'self' 'unsafe-hashes'; style-src 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; frame-src gifypet.neocities.org"
+		Referrer-Policy no-referrer
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options nosniff
+		X-Frame-Options deny
+	}
+
+	file_server
+	handle_errors {
+		rewrite * /{err.status_code}
+		reverse_proxy https://http.cat {
+			header_up Host {upstream_hostport}
+		}
+	}
+}

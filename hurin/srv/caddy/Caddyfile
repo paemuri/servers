@@ -1,0 +1,15 @@
+{
+	email "f@ily-biason.de"
+	storage file_system {
+		root /srv
+	}
+}
+www.ily-biason.de {
+	redir https://{labels.1}.{labels.0}{uri}
+}
+ily-biason.de {
+	root * /srv/{host}
+	try_files {path} {path}.html
+	encode zstd gzip
+	file_server
+}

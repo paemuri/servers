@@ -1,0 +1,13 @@
+#!/bin/sh
+
+for file in $(find etc srv usr -type f)
+do
+  echo "Deploying $file..."
+  rsync $file hurin:/$file \
+    --mkpath \
+    --verbose \
+    --partial \
+    --progress
+  echo
+done
+

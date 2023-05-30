@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - /etc/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - /var/lib/caddy/content:/srv
+      - /var/lib/caddy/data:/usr/share/caddy
+      - /etc/caddy:/config/caddy
+      - /var/log/caddy:/var/log/caddy
