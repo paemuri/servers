@@ -1,0 +1,27 @@
+#!/bin/sh
+
+servers=(hurin pirata portuga)
+server=""
+for s in "${servers[@]}"; do
+  if test "$s" = "$1"; then
+    server="$s"
+    break
+  fi
+done
+if test -z $server; then
+  echo "Invalid server: \"$1\"." >&2
+  exit 1
+fi
+
+for file in $(find $server/etc $server/srv $server/usr -type f)
+do
+  file=$(echo $file | sed "s|^$server/||")
+  echo "Deploying $server's $file..."
+  rsync $server/$file $server:/$file \
+    --mkpath \
+    --verbose \
+    --partial \
+    --progress
+  echo
+done
+
