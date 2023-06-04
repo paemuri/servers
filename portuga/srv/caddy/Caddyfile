@@ -1,7 +1,7 @@
 {
 	email "rescobar@pm.me"
 	storage file_system {
-		root /srv
+		root /var/lib/caddy/data
 	}
 	log {
 		output file /var/log/caddy/caddy.log {
@@ -16,7 +16,7 @@ www.paemuri.com, www.kapiyeya.com, www.classicos.info {
 }
 
 classicos.info {
-	root * /srv/{host}
+	root * /var/lib/caddy/content/{host}
 	try_files {path} {path}.html
 	encode zstd gzip
 
@@ -24,7 +24,7 @@ classicos.info {
 }
 
 paemuri.com {
-	root * /srv/{host}
+	root * /var/lib/caddy/content/{host}
 	try_files {path} {path}.html
 	encode zstd gzip
 	header {
@@ -45,7 +45,7 @@ paemuri.com {
 }
 
 kapiyeya.com {
-	root * /srv/{host}
+	root * /var/lib/caddy/content/{host}
 	try_files {path} {path}.html
 	encode zstd gzip
 	header {

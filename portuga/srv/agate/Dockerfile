@@ -1,0 +1,20 @@
+FROM rust:1-alpine
+WORKDIR /srv/agate
+RUN apk update && apk upgrade && apk add \
+  git \
+  musl-dev
+RUN git clone https://github.com/mbrubeck/agate.git . && \
+  git switch --detach v3.3.0 && \
+  cargo build --release
+
+FROM alpine:latest
+WORKDIR /srv
+COPY --from=0 /srv/agate/target/release/agate ./agate
+ENTRYPOINT ["./agate"]
+CMD [ \
+  "--content", "/var/lib/agate/content", \
+  "--certs", "/var/lib/agate/certs", \
+  "--hostname", "paemuri.com", \
+  "--lang", "en-US", \
+  "--only-tls13" \
+  ]

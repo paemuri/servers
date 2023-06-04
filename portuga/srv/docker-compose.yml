@@ -9,8 +9,15 @@ services:
       - "443:443"
       - "443:443/udp"
     volumes:
-      - /etc/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - /var/lib/caddy/content:/srv
-      - /var/lib/caddy/data:/usr/share/caddy
-      - /etc/caddy:/config/caddy
+      - /srv/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - /var/lib/caddy:/var/lib/caddy
       - /var/log/caddy:/var/log/caddy
+  agate:
+    build:
+      dockerfile: /srv/agate/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "1965:1965"
+    volumes:
+      - /var/lib/agate:/var/lib/agate
+      - /var/log/agate:/var/log/agate
