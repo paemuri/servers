@@ -1,0 +1,15 @@
+#!/bin/sh
+
+bkp_path=~/backups/$SERVER_NAME.bkp-$(date +%F)
+
+mkdir -p $bkp_path
+for ps in $SERVER_PROCESSES
+do
+  mkdir -p $bkp_path/var/lib/$ps
+  cp -rp /var/lib/$ps/* $bkp_path/var/lib/$ps
+done
+
+tar -cvp \
+  --zstd \
+  --file=$bkp_path.tar.zst \
+  $bkp_path

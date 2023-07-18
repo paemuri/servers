@@ -1,3 +1,5 @@
 docker
 docker-compose
 rsync
+tar
+zstd
