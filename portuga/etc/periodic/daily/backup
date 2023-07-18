@@ -13,3 +13,12 @@ tar -cvp \
   --zstd \
   --file=$bkp_path.tar.zst \
   $bkp_path
+#rm -rf $bkp_path
+
+# Clean backups older than 7 days.
+find ~/backups \
+  -mindepth 1 \
+  -maxdepth 1 \
+  -type f \
+  -mtime +7 \
+  -exec rm -rf {} \;
