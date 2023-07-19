@@ -1,5 +1,6 @@
 docker
 docker-compose
+rclone
 rsync
 tar
 zstd

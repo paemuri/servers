@@ -1,5 +1,6 @@
 #!/bin/sh
 
+source /etc/profile
 bkp_path=~/backups/$SERVER_NAME.bkp-$(date +%F)
 
 mkdir -p $bkp_path
@@ -13,12 +14,14 @@ tar -cvp \
   --zstd \
   --file=$bkp_path.tar.zst \
   $bkp_path
-#rm -rf $bkp_path
+rm -rf $bkp_path
 
-# Clean backups older than 7 days.
+# Clean backups older than 30 days.
 find ~/backups \
   -mindepth 1 \
   -maxdepth 1 \
   -type f \
-  -mtime +7 \
+  -mtime +30 \
   -exec rm -rf {} \;
+
+rclone sync ~/backups mega-crypt:/server-backups/portuga
