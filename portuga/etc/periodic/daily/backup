@@ -1,27 +1,28 @@
 #!/bin/sh
 
 source /etc/profile
-bkp_path=~/backups/$SERVER_NAME.bkp-$(date +%F)
+backups_dir=/var/local/backups
+backup=$SERVER_NAME.bkp-$(date +%F)
 
-mkdir -p $bkp_path
+mkdir -p $backups_dir/$backup
+cd $backups_dir
+
 for ps in $SERVER_PROCESSES
 do
-  mkdir -p $bkp_path/var/lib/$ps
-  cp -rp /var/lib/$ps/* $bkp_path/var/lib/$ps
+  mkdir -p $backup/var/lib/$ps
+  cp -rp /var/lib/$ps/* $backup/var/lib/$ps
 done
 
 tar -cvp \
   --zstd \
-  --file=$bkp_path.tar.zst \
-  $bkp_path
-rm -rf $bkp_path
+  --file=$backup.tar.zst \
+  $backup
+rm -rf $backup
 
 # Clean backups older than 30 days.
-find ~/backups \
-  -mindepth 1 \
-  -maxdepth 1 \
+find . \
   -type f \
   -mtime +30 \
   -exec rm -rf {} \;
 
-rclone sync ~/backups mega-crypt:/server-backups/portuga
+rclone sync . mega-crypt:/server-backups/$SERVER_NAME
