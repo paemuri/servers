@@ -49,7 +49,7 @@ kapiyeya.com {
 	try_files {path} {path}.html
 	encode zstd gzip
 	header {
-		Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self' data:; media-src 'self'; script-src 'self' 'unsafe-hashes'; style-src 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; frame-src gifypet.neocities.org"
+		#Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self' data:; media-src 'self'; script-src 'self' 'unsafe-hashes'; style-src 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; frame-src gifypet.neocities.org"
 		Referrer-Policy no-referrer
 		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 		X-Content-Type-Options nosniff
