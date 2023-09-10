@@ -1,6 +1,0 @@
-#!/bin/sh
-
-set -e
-
-apk add $(cat /usr/local/share/packages/*)
-pkg-update

@@ -8,12 +8,28 @@ for s in "${servers[@]}"; do
     break
   fi
 done
-if test -z $server; then
+if test -z "$server"; then
   echo "Invalid server: \"$1\"." >&2
   exit 1
 fi
+if test "$server" = "pirata"; then
+  echo "Pirata is not being used currently." >&2
+  exit 1
+fi
 
-for file in $(find $server/etc $server/srv $server/usr -type f)
+for file in $(find _shared/etc _shared/usr -type f)
+do
+  file=$(echo $file | sed "s|^_shared/||")
+  echo "Deploying $server's $file..."
+  rsync _shared/$file $server:/$file \
+    --mkpath \
+    --verbose \
+    --partial \
+    --progress
+  echo
+done
+
+for file in $(find $server/etc $server/usr $server/srv -type f)
 do
   file=$(echo $file | sed "s|^$server/||")
   echo "Deploying $server's $file..."
@@ -24,4 +40,3 @@ do
     --progress
   echo
 done
-
