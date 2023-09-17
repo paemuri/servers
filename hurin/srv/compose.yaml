@@ -1,0 +1,13 @@
+services:
+  caddy:
+    hostname: caddy
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - /srv/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - /var/lib/caddy:/var/lib/caddy
+      - /var/log/caddy:/var/log/caddy

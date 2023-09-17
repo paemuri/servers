@@ -1,7 +1,6 @@
-version: "3.7"
-
 services:
   caddy:
+    hostname: caddy
     image: caddy:2-alpine
     restart: unless-stopped
     ports:
@@ -13,6 +12,7 @@ services:
       - /var/lib/caddy:/var/lib/caddy
       - /var/log/caddy:/var/log/caddy
   agate:
+    hostname: agate
     build:
       dockerfile: /srv/agate/Dockerfile
     restart: unless-stopped
@@ -22,6 +22,7 @@ services:
       - /var/lib/agate:/var/lib/agate
       - /var/log/agate:/var/log/agate
   maddy:
+    hostname: maddy
     build:
       dockerfile: /srv/maddy/Dockerfile
     depends_on:
@@ -35,6 +36,6 @@ services:
       - "993:993"
     volumes:
       - /srv/maddy/maddy.conf:/etc/maddy/maddy.conf
-      - /var/lib/caddy/data/certificates/acme.zerossl.com-v2-dv90:/var/lib/maddy/certs
+      - /var/lib/caddy/data/certificates/acme-v02.api.letsencrypt.org-directory:/var/lib/maddy/certs
       - /var/lib/maddy:/var/lib/maddy
       - /var/log/maddy:/var/log/maddy
