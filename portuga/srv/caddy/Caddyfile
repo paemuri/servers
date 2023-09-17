@@ -11,19 +11,7 @@
 	}
 }
 
-www.paemuri.com, www.kapiyeya.com, www.classicos.info {
-	redir https://{labels.1}.{labels.0}{uri}
-}
-
-classicos.info {
-	root * /var/lib/caddy/content/{host}
-	try_files {path} {path}.html
-	encode zstd gzip
-
-	file_server
-}
-
-paemuri.com {
+(base) {
 	root * /var/lib/caddy/content/{host}
 	try_files {path} {path}.html
 	encode zstd gzip
@@ -33,27 +21,29 @@ paemuri.com {
 		X-Content-Type-Options nosniff
 		X-Frame-Options deny
 	}
+}
 
+www.paemuri.com, www.kapiyeya.com, www.classicos.info {
+	redir https://{labels.1}.{labels.0}{uri}
+}
+
+classicos.info {
+	import base
+	file_server
+}
+
+paemuri.com {
+	import base
 	file_server {
 		hide error.html
 	}
 	handle_errors {
 		rewrite * /error.html
-		file_server
 	}
 }
 
 kapiyeya.com {
-	root * /var/lib/caddy/content/{host}
-	try_files {path} {path}.html
-	encode zstd gzip
-	header {
-		Referrer-Policy no-referrer
-		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-		X-Content-Type-Options nosniff
-		X-Frame-Options deny
-	}
-
+	import base
 	file_server
 	handle_errors {
 		rewrite * /{err.status_code}
