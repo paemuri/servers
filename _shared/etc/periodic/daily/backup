@@ -1,16 +1,19 @@
 #!/bin/sh
 
 source /etc/profile
+
+[ -z "$BACKUP_SERVICES"] && exit 0
+
 backups_dir=/var/local/backups
 backup=$SERVER_NAME.bkp-$(date +%F)
 
 mkdir -p $backups_dir/$backup
-cd $backups_dir
+cd $backups_dir # cd so archived files have sane paths.
 
-for ps in $SERVER_PROCESSES
+for svc in $BACKUP_SERVICES
 do
-  mkdir -p $backup/var/lib/$ps
-  cp -rp /var/lib/$ps/* $backup/var/lib/$ps
+  mkdir -p $backup/var/lib/$svc
+  cp -rp /var/lib/$svc/* $backup/var/lib/$svc
 done
 
 tar -cvp \
