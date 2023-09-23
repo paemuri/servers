@@ -2,7 +2,7 @@ version: 2
 
 global:
   server_name: ily-biason.de
-  private_key: /var/lib/dendrite/certs/matrix/matrix_key.pem
+  private_key: /var/lib/dendrite/certs/matrix.pem
   key_validity_period: 168h0m0s
   cache:
     max_size_estimated: 1gb

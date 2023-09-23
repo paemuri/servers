@@ -18,8 +18,8 @@ services:
     image: matrixdotorg/dendrite-monolith:latest
     restart: unless-stopped
     volumes:
-      - /srv/dendrite/config:/etc/dendrite
-      - /srv/dendrite/cert:/var/lib/dendrite/certs/matrix
+      - /srv/dendrite/config/dendrite.yaml:/etc/dendrite/dendrite.yaml
+      - /srv/dendrite/certs/matrix.pem:/var/lib/dendrite/certs/matrix.pem
       - /var/lib/dendrite/media:/var/lib/dendrite/media
       - /var/lib/dendrite/db:/var/lib/dendrite/db
       - /var/log/dendrite:/var/log/dendrite
