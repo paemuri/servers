@@ -45,7 +45,7 @@ passwd -d root
 exit
 ```
 
-## Minecraft
+### Minecraft
 
 It's still a todo. Here's the old script for it:
 
@@ -104,3 +104,23 @@ chmod +x /etc/init.d/minecraft
 rc-update add minecraft default
 rc-service minecraft start
 ```
+
+## Source code
+
+The main repository is on [SourceHut][source-srht]. Mirrors exist on
+[Codeberg][source-codeberg] and [GitHub][source-github] for convenience, but
+they might occasionally be outdated.
+
+### License and contribution
+
+This project's code is in the public domain. See the
+[LICENSE file][source-license].
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you shall be in the public domain, without any
+additional terms or conditions.
+
+[source-srht]: https://git.sr.ht/~paemuri/servers
+[source-codeberg]: https://codeberg.org/paemuri/servers
+[source-github]: https://github.com/paemuri/servers
+[source-license]: ./LICENSE
