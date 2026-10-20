@@ -39,7 +39,14 @@ paemuri.com {
 	}
 	handle_errors {
 		rewrite * /error.html
+		file_server
 	}
+	header {
+		Content-Security-Policy "default-src 'self'; style-src 'self' https://code.cdn.mozilla.net; font-src https://code.cdn.mozilla.net; img-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-ancestors 'none'"
+		Permissions-Policy "geolocation=(), microphone=(), camera=()"
+	}
+	@static path /static/*
+	header @static Cache-Control "public, max-age=86400"
 }
 
 kapiyeya.com {
@@ -51,4 +58,6 @@ kapiyeya.com {
 			header_up Host {upstream_hostport}
 		}
 	}
+	@assets path /images/* /stylesheets/* /scripts/* /lib/*
+	header @assets Cache-Control "public, max-age=86400"
 }
