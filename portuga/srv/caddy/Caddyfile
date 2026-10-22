@@ -57,6 +57,7 @@ kapiyeya.com {
 		reverse_proxy https://http.cat {
 			header_up Host {upstream_hostport}
 			replace_status {err.status_code}
+			header_down Cache-Control "no-store"
 		}
 	}
 	@assets path /images/* /stylesheets/* /scripts/* /lib/*
