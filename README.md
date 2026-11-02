@@ -39,11 +39,9 @@ apk add docker rsync
 
 # You can configure SSH by hand if it's preferred.
 sed --in-place 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
-sed --in-place 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config
 sed --in-place 's/#Port 22/Port 22069/' /etc/ssh/sshd_config
 
 service sshd restart
-passwd -d root
 exit
 ```
 
