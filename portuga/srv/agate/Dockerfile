@@ -4,7 +4,7 @@ RUN apk update && apk upgrade && apk add \
   git \
   musl-dev
 RUN git clone https://github.com/mbrubeck/agate.git . && \
-  git switch --detach v3.3.0 && \
+  git switch --detach v3.3.25 && \
   cargo build --release
 
 FROM alpine:latest
@@ -16,5 +16,4 @@ CMD [ \
   "--certs", "/var/lib/agate/certs", \
   "--hostname", "paemuri.com", \
   "--lang", "en-US", \
-  "--only-tls13" \
   ]
