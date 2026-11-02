@@ -23,13 +23,8 @@
 	}
 }
 
-www.paemuri.com, www.kapiyeya.com, www.classicos.info {
+www.paemuri.com, www.kapiyeya.com {
 	redir https://{labels.1}.{labels.0}{uri}
-}
-
-classicos.info {
-	import base
-	file_server
 }
 
 paemuri.com {
