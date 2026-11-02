@@ -1,6 +1,6 @@
 AuthorizedKeysFile .ssh/authorized_keys
 PasswordAuthentication no
-PermitEmptyPasswords yes
+PermitEmptyPasswords no
 PermitRootLogin prohibit-password
 Port 22069
 
