@@ -2,7 +2,7 @@
 
 source /etc/profile
 
-[ -z "$BACKUP_SERVICES"] && exit 0
+[ -z "$BACKUP_SERVICES" ] && exit 0
 
 backups_dir=/var/local/backups
 backup=$SERVER_NAME.bkp-$(date +%F)
